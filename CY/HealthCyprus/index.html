@@ -1,4 +1,4 @@
-``html
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -68,12 +68,13 @@
         .nav-scrolled { background-color: rgba(252, 250, 237, 0.95); backdrop-filter: blur(10px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
     </style>
 </head>
-<body class="bg-brand-cream text-brand-plum font-sans antialiased overflow-x-hidden selection:bg-brand-peach selection:text-white">
+<body id="home" class="bg-brand-cream text-brand-plum font-sans antialiased overflow-x-hidden selection:bg-brand-peach selection:text-white">
 
     <!-- Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-sm border border-white/50">
-            <a href="#" class="flex items-center gap-2 group">
+            <!-- Fixed logo link to point to #home instead of # to prevent jumping -->
+            <a href="#home" class="flex items-center gap-2 group">
                 <i class="ph-fill ph-plant text-3xl text-brand-sage group-hover:text-brand-peach transition-colors duration-300"></i>
                 <span class="font-black text-2xl tracking-tight text-brand-plum">Healthy<span class="text-brand-peach">yogis</span></span>
             </a>
@@ -87,15 +88,60 @@
             </nav>
 
             <div class="flex items-center gap-4">
+                <!-- Desktop Language Selector -->
+                <div class="hidden lg:flex items-center gap-3 text-sm font-bold text-brand-plum/40 border-r border-brand-plum/10 pr-5">
+                    <button class="text-brand-plum hover:text-brand-peach transition-colors">EN</button>
+                    <button class="hover:text-brand-peach transition-colors">GR</button>
+                    <button class="hover:text-brand-peach transition-colors">RU</button>
+                </div>
+
                 <a href="#schedule" class="bg-brand-plum hover:bg-brand-peach text-white px-6 py-2.5 rounded-full font-bold transition-colors hidden md:block shadow-md">
                     Join a Class
                 </a>
-                <button class="lg:hidden text-2xl text-brand-plum bg-brand-peachLight p-2 rounded-full">
+                
+                <!-- Burger Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-2xl text-brand-plum bg-brand-peachLight p-2 rounded-full hover:bg-brand-peach hover:text-white transition-colors">
                     <i class="ph ph-list"></i>
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-cream z-[100] translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-brand-plum/10 bg-white/50">
+            <a href="#home" class="flex items-center gap-2" onclick="toggleMobileMenu()">
+                <i class="ph-fill ph-plant text-3xl text-brand-sage"></i>
+                <span class="font-black text-2xl tracking-tight text-brand-plum">Healthy<span class="text-brand-peach">yogis</span></span>
+            </a>
+            <button onclick="toggleMobileMenu()" class="text-3xl text-brand-plum p-2 bg-brand-peachLight rounded-full hover:bg-brand-peach hover:text-white transition-colors">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-8 flex flex-col justify-center">
+            <nav class="flex flex-col gap-8 font-black text-3xl text-center text-brand-plum">
+                <a href="#philosophy" onclick="toggleMobileMenu()" class="hover:text-brand-peach transition-colors">Our Approach</a>
+                <a href="#recipes" onclick="toggleMobileMenu()" class="hover:text-brand-sage transition-colors">Healthy Recipes</a>
+                <a href="#schedule" onclick="toggleMobileMenu()" class="hover:text-brand-peach transition-colors">Classes</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-brand-peach transition-colors">About</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-brand-peach transition-colors">Contact</a>
+            </nav>
+        </div>
+
+        <div class="p-8 bg-white rounded-t-[2.5rem] shadow-[0_-10px_40px_-15px_rgba(90,58,105,0.1)] text-center">
+            <!-- Mobile Language Selector -->
+            <div class="flex justify-center items-center gap-6 text-lg font-bold text-brand-plum/40 mb-6">
+                <button class="text-brand-plum hover:text-brand-peach transition-colors">English</button>
+                <button class="hover:text-brand-peach transition-colors">Ελληνικά</button>
+                <button class="hover:text-brand-peach transition-colors">Русский</button>
+            </div>
+            
+            <a href="#schedule" onclick="toggleMobileMenu()" class="block w-full bg-brand-plum text-white py-4 rounded-full font-bold text-lg shadow-lg hover:bg-purple-900 transition-colors">
+                Join a Class
+            </a>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Section -->
@@ -726,6 +772,18 @@
             }
         });
 
+        // Mobile Menu Toggle Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            } else {
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            }
+        }
+
         // Tab Logic (Schedule)
         function switchTab(dayId) {
             document.querySelectorAll('.tab-content').forEach(c => {
@@ -823,5 +881,3 @@
 </body>
 </html>
 
-
-```
