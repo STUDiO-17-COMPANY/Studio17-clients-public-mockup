@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <html lang="pt-PT" class="scroll-smooth">
 <head>
@@ -19,6 +19,12 @@
 
     <!-- Estilos do Lenis e Personalizações -->
     <style>
+        /* A CORREÇÃO MAIS SEGURA PARA O OVERFLOW: Usar clip em vez de hidden */
+        html, body { 
+            overflow-x: clip; 
+            max-width: 100%;
+        }
+
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -34,7 +40,6 @@
             --clay: #BFA594;
         }
         
-        /* CORREÇÃO MOBILE: body sem overflow-x-hidden para não conflitar com o Lenis */
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -110,348 +115,343 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased w-full relative">
 
-    <!-- WRAPPER SEGURO PARA MOBILE: Previne o "salto" no scroll -->
-    <div id="smooth-wrapper" class="overflow-x-hidden relative w-full">
-
-        <!-- Navegação -->
-        <nav class="fixed w-full z-50 transition-all duration-500 py-6 px-6 md:px-12" id="navbar">
-            <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <a href="#hero" class="nav-link text-2xl font-serif tracking-wide text-white mix-blend-difference z-10">Yoga at Home</a>
-                
-                <!-- Menu Desktop -->
-                <div class="hidden md:flex space-x-8 text-white mix-blend-difference items-center text-sm uppercase tracking-widest z-10">
-                    <a href="#story" class="nav-link relative hover-underline">Estúdio</a>
-                    <a href="#classes" class="nav-link relative hover-underline">Práticas</a>
-                    <a href="#schedule" class="nav-link relative hover-underline">Horários</a>
-                    <a href="#pricing" class="nav-link relative hover-underline">Preços</a>
-                    <a href="#contact" class="nav-link px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300">Junta-te a Nós</a>
-                </div>
-
-                <!-- Botão Menu Mobile -->
-                <button class="md:hidden text-white mix-blend-difference z-10" id="mobile-menu-btn" aria-label="Alternar Menu">
-                    <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
-                </button>
+    <!-- Navegação -->
+    <nav class="fixed w-full z-50 transition-all duration-500 py-6 px-6 md:px-12" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#hero" class="nav-link text-2xl font-serif tracking-wide text-white mix-blend-difference z-10">Yoga at Home</a>
+            
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex space-x-8 text-white mix-blend-difference items-center text-sm uppercase tracking-widest z-10">
+                <a href="#story" class="nav-link relative hover-underline">Estúdio</a>
+                <a href="#classes" class="nav-link relative hover-underline">Práticas</a>
+                <a href="#schedule" class="nav-link relative hover-underline">Horários</a>
+                <a href="#pricing" class="nav-link relative hover-underline">Preços</a>
+                <a href="#contact" class="nav-link px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors duration-300">Junta-te a Nós</a>
             </div>
-        </nav>
 
-        <!-- Overlay do Menu Mobile -->
-        <div id="mobile-menu" class="fixed inset-0 bg-[#FDFBF7] z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
-            <div class="flex flex-col space-y-8 text-center text-2xl font-serif w-full px-6">
-                <a href="#story" class="mobile-link text-[#2D302A] block w-full py-2">O Estúdio</a>
-                <a href="#classes" class="mobile-link text-[#2D302A] block w-full py-2">Práticas</a>
-                <a href="#schedule" class="mobile-link text-[#2D302A] block w-full py-2">Horários</a>
-                <a href="#pricing" class="mobile-link text-[#2D302A] block w-full py-2">Preços</a>
-                <a href="#contact" class="mobile-link text-sage mt-4 block w-full py-2">Contacto & Reservas</a>
+            <!-- Botão Menu Mobile -->
+            <button class="md:hidden text-white mix-blend-difference z-10" id="mobile-menu-btn" aria-label="Alternar Menu">
+                <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Overlay do Menu Mobile -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#FDFBF7] z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="flex flex-col space-y-8 text-center text-2xl font-serif w-full px-6">
+            <a href="#story" class="mobile-link text-[#2D302A] block w-full py-2">O Estúdio</a>
+            <a href="#classes" class="mobile-link text-[#2D302A] block w-full py-2">Práticas</a>
+            <a href="#schedule" class="mobile-link text-[#2D302A] block w-full py-2">Horários</a>
+            <a href="#pricing" class="mobile-link text-[#2D302A] block w-full py-2">Preços</a>
+            <a href="#contact" class="mobile-link text-sage mt-4 block w-full py-2">Contacto & Reservas</a>
+        </div>
+    </div>
+
+    <!-- Secção Hero -->
+    <section id="hero" class="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden hero-section">
+        <div class="absolute inset-0 z-0 bg-black">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000&auto=format&fit=crop" alt="" class="w-full h-full object-cover opacity-70 hero-bg">
+        </div>
+        
+        <!-- Gradiente de transição suave -->
+        <div class="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FDFBF7] to-transparent z-10"></div>
+        
+        <div class="relative z-20 text-center text-white px-6 max-w-4xl mt-16">
+            <div class="overflow-hidden">
+                <h1 class="hero-elem text-5xl md:text-7xl lg:text-8xl font-serif mb-6 leading-tight">Respira.<br>Reconecta-te. Pertence.</h1>
+            </div>
+            <div class="overflow-hidden">
+                <p class="hero-elem text-lg md:text-xl font-light tracking-wide mb-10 max-w-2xl mx-auto text-gray-100">
+                    Um refúgio seguro no coração de Limassol. Mais do que apenas aulas—um espaço de confiança para te moveres, encontrares o teu equilíbrio e sentires-te em casa.
+                </p>
+            </div>
+            <div class="overflow-hidden">
+                <a href="#story" class="nav-link hero-elem inline-flex flex-col items-center text-sm uppercase tracking-widest hover:text-gray-300 transition-colors">
+                    <span class="mb-2">Descobre o nosso santuário</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- Secção Hero (USANDO svh PARA MOBILE) -->
-        <section id="hero" class="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden hero-section">
-            <div class="absolute inset-0 z-0 bg-black">
-                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000&auto=format&fit=crop" alt="" class="w-full h-full object-cover opacity-70 hero-bg">
+    <!-- A História / Intro -->
+    <section id="story" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 img-container rounded-t-[100px] rounded-b-lg h-[500px] md:h-[700px] fade-up">
+                <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=1000&auto=format&fit=crop" alt="" class="parallax-img">
             </div>
-            
-            <!-- Gradiente de transição suave -->
-            <div class="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#FDFBF7] to-transparent z-10"></div>
-            
-            <div class="relative z-20 text-center text-white px-6 max-w-4xl mt-16">
-                <div class="overflow-hidden">
-                    <h1 class="hero-elem text-5xl md:text-7xl lg:text-8xl font-serif mb-6 leading-tight">Respira.<br>Reconecta-te. Pertence.</h1>
-                </div>
-                <div class="overflow-hidden">
-                    <p class="hero-elem text-lg md:text-xl font-light tracking-wide mb-10 max-w-2xl mx-auto text-gray-100">
-                        Um refúgio seguro no coração de Limassol. Mais do que apenas aulas—um espaço de confiança para te moveres, encontrares o teu equilíbrio e sentires-te em casa.
+            <div class="order-1 md:order-2 flex flex-col justify-center fade-up">
+                <span class="text-sage uppercase tracking-widest text-sm mb-4 block">O Estúdio</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-8 leading-tight">Não apenas mais um ginásio genérico.<br><span class="italic text-clay">O teu santuário.</span></h2>
+                <div class="space-y-6 text-lg text-gray-600 font-light leading-relaxed">
+                    <p>
+                        O "Yoga at Home" nasceu de um desejo simples: criar um espaço acessível e humano em Limassol, onde o bem-estar não seja um luxo, mas sim uma experiência partilhada.
+                    </p>
+                    <p>
+                        Afastamo-nos do ruído dos ginásios lotados. Aqui, a consistência encontra o conforto. Quer estejas a começar a tua jornada ou a aprofundar a tua prática, os nossos professores experientes estão aqui para te guiar até ao equilíbrio físico e emocional.
                     </p>
                 </div>
-                <div class="overflow-hidden">
-                    <a href="#story" class="nav-link hero-elem inline-flex flex-col items-center text-sm uppercase tracking-widest hover:text-gray-300 transition-colors">
-                        <span class="mb-2">Descobre o nosso santuário</span>
-                        <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
-                    </a>
+                <div class="mt-10">
+                    <img src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?q=80&w=400&auto=format&fit=crop" alt="" class="w-32 h-32 object-cover rounded-full">
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- A História / Intro -->
-        <section id="story" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto relative z-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="order-2 md:order-1 img-container rounded-t-[100px] rounded-b-lg h-[500px] md:h-[700px] fade-up">
-                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=1000&auto=format&fit=crop" alt="" class="parallax-img">
+    <!-- Ofertas / Aulas -->
+    <section id="classes" class="py-24 bg-sand rounded-t-[3rem] md:rounded-t-[5rem]">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-up">
+                <div class="max-w-xl">
+                    <span class="text-gray-500 uppercase tracking-widest text-sm mb-4 block">As Nossas Práticas</span>
+                    <h2 class="text-4xl md:text-5xl font-serif leading-tight text-[#2D302A]">Movimento para todos os corpos e mentes.</h2>
                 </div>
-                <div class="order-1 md:order-2 flex flex-col justify-center fade-up">
-                    <span class="text-sage uppercase tracking-widest text-sm mb-4 block">O Estúdio</span>
-                    <h2 class="text-4xl md:text-5xl font-serif mb-8 leading-tight">Não apenas mais um ginásio genérico.<br><span class="italic text-clay">O teu santuário.</span></h2>
-                    <div class="space-y-6 text-lg text-gray-600 font-light leading-relaxed">
-                        <p>
-                            O "Yoga at Home" nasceu de um desejo simples: criar um espaço acessível e humano em Limassol, onde o bem-estar não seja um luxo, mas sim uma experiência partilhada.
-                        </p>
-                        <p>
-                            Afastamo-nos do ruído dos ginásios lotados. Aqui, a consistência encontra o conforto. Quer estejas a começar a tua jornada ou a aprofundar a tua prática, os nossos professores experientes estão aqui para te guiar até ao equilíbrio físico e emocional.
-                        </p>
-                    </div>
-                    <div class="mt-10">
-                        <img src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?q=80&w=400&auto=format&fit=crop" alt="" class="w-32 h-32 object-cover rounded-full">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Ofertas / Aulas -->
-        <section id="classes" class="py-24 bg-sand rounded-t-[3rem] md:rounded-t-[5rem]">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-up">
-                    <div class="max-w-xl">
-                        <span class="text-gray-500 uppercase tracking-widest text-sm mb-4 block">As Nossas Práticas</span>
-                        <h2 class="text-4xl md:text-5xl font-serif leading-tight text-[#2D302A]">Movimento para todos os corpos e mentes.</h2>
-                    </div>
-                    <p class="text-gray-600 font-light mt-6 md:mt-0 max-w-sm">
-                        Uma variedade de estilos sob o mesmo teto. Desde o descanso profundo ao fluxo dinâmico, encontra a prática ideal para o teu dia de hoje.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="practices-grid">
-                    
-                    <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
-                        <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
-                            <i data-lucide="waves" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-xl font-serif mb-3">Vinyasa Flow</h3>
-                        <p class="text-gray-600 font-light text-sm leading-relaxed">Sequências fluidas e dinâmicas que unem a respiração ao movimento para gerar calor e limpar a mente.</p>
-                    </div>
-
-                    <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
-                        <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
-                            <i data-lucide="moon" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-xl font-serif mb-3">Yin & Restaurativo</h3>
-                        <p class="text-gray-600 font-light text-sm leading-relaxed">Posturas profundas e passivas que atuam nos tecidos conjuntivos, convidando a um descanso profundo e libertação emocional.</p>
-                    </div>
-
-                    <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
-                        <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
-                            <i data-lucide="sun" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-xl font-serif mb-3">Hatha Foundation</h3>
-                        <p class="text-gray-600 font-light text-sm leading-relaxed">Aulas focadas no alinhamento, sustentando as posturas por mais tempo. Perfeito para construir força e estabilidade.</p>
-                    </div>
-
-                    <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
-                        <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
-                            <i data-lucide="sparkles" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-xl font-serif mb-3">Meditação Consciente</h3>
-                        <p class="text-gray-600 font-light text-sm leading-relaxed">Sessões guiadas para te ajudar a enraizar no momento presente, cultivando paz interior e clareza.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tabela de Horários Interativa -->
-        <section id="schedule" class="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
-            <div class="text-center mb-12 fade-up">
-                <span class="text-sage uppercase tracking-widest text-sm mb-4 block">Esta Semana</span>
-                <h2 class="text-3xl md:text-5xl font-serif mb-4">Horário das Aulas</h2>
-                <p class="text-gray-600 font-light max-w-2xl mx-auto mb-2">Encontra a prática que se adapta ao teu dia.</p>
-                <p class="text-[#2D302A] font-semibold">Escolhe a tua aula abaixo e reserva o teu tapete.</p>
+                <p class="text-gray-600 font-light mt-6 md:mt-0 max-w-sm">
+                    Uma variedade de estilos sob o mesmo teto. Desde o descanso profundo ao fluxo dinâmico, encontra a prática ideal para o teu dia de hoje.
+                </p>
             </div>
 
-            <div class="fade-up delay-100 bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
-                <!-- Tabs dos Dias -->
-                <div class="flex space-x-2 md:space-x-4 overflow-x-auto hide-scrollbar pb-6 border-b border-gray-100 mb-6" id="schedule-tabs">
-                    <!-- Gerado por JS -->
-                </div>
-
-                <!-- Cabeçalho da Tabela (Apenas Desktop) -->
-                <div class="hidden md:grid grid-cols-12 gap-4 pb-4 text-xs uppercase tracking-widest text-gray-400 font-bold border-b border-gray-100 mb-2">
-                    <div class="col-span-2">Hora</div>
-                    <div class="col-span-5">Prática</div>
-                    <div class="col-span-3">Professor(a)</div>
-                    <div class="col-span-2 text-right">Ação</div>
-                </div>
-
-                <!-- Conteúdo da Tabela -->
-                <div id="schedule-content" class="space-y-2">
-                    <!-- Gerado por JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Imagem da Comunidade (USANDO svh) -->
-        <section class="py-12">
-            <div class="w-full min-h-[60svh] md:min-h-[70svh] img-container fade-up">
-                <img src="https://images.unsplash.com/photo-1552858725-2758b5fb1286?q=80&w=2000&auto=format&fit=crop" alt="" class="parallax-img object-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="practices-grid">
                 
-                <div class="absolute bottom-8 left-6 md:bottom-16 md:left-12 bg-[#FDFBF7]/95 backdrop-blur-sm p-8 max-w-sm rounded-tr-3xl rounded-bl-3xl">
-                    <p class="text-xl font-serif italic mb-2 text-[#2D302A]">"O lugar onde finalmente aprendi a respirar."</p>
-                    <span class="text-xs uppercase tracking-widest text-sage">— Membro do Estúdio</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Preços -->
-        <section id="pricing" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
-            <div class="text-center mb-16 fade-up">
-                <span class="text-sage uppercase tracking-widest text-sm mb-4 block">Membros</span>
-                <h2 class="text-3xl md:text-5xl font-serif mb-6">Investe no teu bem-estar.</h2>
-                <p class="text-gray-600 font-light max-w-2xl mx-auto">Preços simples e transparentes para apoiar a tua prática contínua.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="border border-gray-200 rounded-2xl p-8 flex flex-col items-center text-center fade-up hover:border-sage transition-colors bg-white">
-                    <h3 class="text-2xl font-serif mb-2">Aula Avulsa</h3>
-                    <div class="text-4xl font-light mb-6">€20</div>
-                    <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Perfeito para visitantes ou para quem quer experimentar uma única aula.</p>
-                    <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Válido por 1 mês</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Tapete incluído</li>
-                    </ul>
-                    <a href="#contact" class="nav-link w-full py-3 border border-[#2D302A] rounded-full hover:bg-[#2D302A] hover:text-white transition-colors text-sm uppercase tracking-widest">Reservar Agora</a>
-                </div>
-
-                <div class="border-2 border-sage rounded-2xl p-8 flex flex-col items-center text-center fade-up relative bg-[#FDFBF7] shadow-lg transform md:-translate-y-4">
-                    <div class="absolute -top-3 bg-sage text-white text-xs uppercase tracking-widest px-4 py-1 rounded-full">Mais Popular</div>
-                    <h3 class="text-2xl font-serif mb-2">Passe 5 Aulas</h3>
-                    <div class="text-4xl font-light mb-6">€85</div>
-                    <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Uma opção flexível para quem pratica uma ou duas vezes por semana.</p>
-                    <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Válido por 3 meses</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Acesso a todas as aulas</li>
-                    </ul>
-                    <a href="#contact" class="nav-link w-full py-3 bg-sage text-white rounded-full hover:bg-[#2D302A] transition-colors text-sm uppercase tracking-widest">Comprar Passe</a>
-                </div>
-
-                <div class="border border-gray-200 rounded-2xl p-8 flex flex-col items-center text-center fade-up hover:border-sage transition-colors bg-white">
-                    <h3 class="text-2xl font-serif mb-2">Mensalidade</h3>
-                    <div class="text-4xl font-light mb-6">€140</div>
-                    <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Acesso ilimitado para o praticante dedicado.</p>
-                    <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Aulas ilimitadas</li>
-                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> 10% de desconto em workshops</li>
-                    </ul>
-                    <a href="#contact" class="nav-link w-full py-3 border border-[#2D302A] rounded-full hover:bg-[#2D302A] hover:text-white transition-colors text-sm uppercase tracking-widest">Subscrever</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacto & Reservas -->
-        <section id="contact" class="py-24 bg-sand">
-            <div class="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="fade-up">
-                    <span class="text-gray-500 uppercase tracking-widest text-sm mb-4 block">Entra em Contacto</span>
-                    <h2 class="text-4xl md:text-5xl font-serif mb-8 text-[#2D302A]">Estamos aqui para ti.</h2>
-                    <p class="text-gray-600 font-light mb-10">Quer tenhas uma dúvida sobre uma aula, queiras discutir uma lesão, ou simplesmente queiras dizer olá antes da tua primeira visita.</p>
-                    
-                    <div class="space-y-6 text-[#2D302A] font-light">
-                        <div class="flex items-start">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-sage mr-4 mt-1"></i>
-                            <div>
-                                <strong class="block font-normal">Localização</strong>
-                                123 Wellness Avenue<br>Limassol, 3010, Chipre
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i data-lucide="mail" class="w-5 h-5 text-sage mr-4 mt-1"></i>
-                            <div>
-                                <strong class="block font-normal">Email</strong>
-                                hello@yogaathome.cy
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i data-lucide="phone" class="w-5 h-5 text-sage mr-4 mt-1"></i>
-                            <div>
-                                <strong class="block font-normal">Telefone</strong>
-                                +357 25 000 000
-                            </div>
-                        </div>
+                <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
+                        <i data-lucide="waves" class="w-6 h-6"></i>
                     </div>
+                    <h3 class="text-xl font-serif mb-3">Vinyasa Flow</h3>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">Sequências fluidas e dinâmicas que unem a respiração ao movimento para gerar calor e limpar a mente.</p>
                 </div>
 
-                <div class="bg-[#FDFBF7] p-8 md:p-12 rounded-3xl shadow-sm fade-up delay-100">
-                    <h3 class="text-2xl font-serif mb-8">Enviar uma Mensagem</h3>
-                    <form class="space-y-6">
-                        <div>
-                            <input type="text" placeholder="O teu Nome" class="form-input" required>
-                        </div>
-                        <div>
-                            <input type="email" placeholder="O teu Email" class="form-input" required>
-                        </div>
-                        <div>
-                            <input type="text" placeholder="Assunto (ex: Dúvida sobre reserva)" class="form-input">
-                        </div>
-                        <div>
-                            <textarea placeholder="Como podemos ajudar?" rows="3" class="form-input resize-none" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-[#2D302A] text-white py-4 rounded-full uppercase tracking-widest text-sm font-semibold hover:bg-sage transition-colors mt-4">
-                            Enviar Mensagem
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Rodapé -->
-        <footer class="bg-[#2D302A] text-[#FDFBF7] pt-16 pb-8 px-6 md:px-12">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <h3 class="text-2xl font-serif mb-4">Yoga at Home</h3>
-                    <p class="max-w-sm mb-6 font-light text-gray-400">Um refúgio seguro para o movimento consciente, respiração e conexão comunitária em Limassol.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
+                        <i data-lucide="moon" class="w-6 h-6"></i>
                     </div>
-                </div>
-                
-                <div>
-                    <h4 class="uppercase tracking-widest mb-4 text-xs font-bold text-gray-300">Explorar</h4>
-                    <ul class="space-y-3 font-light text-gray-400 text-sm">
-                        <li><a href="#story" class="nav-link hover:text-white transition-colors">O Estúdio</a></li>
-                        <li><a href="#classes" class="nav-link hover:text-white transition-colors">Aulas</a></li>
-                        <li><a href="#schedule" class="nav-link hover:text-white transition-colors">Horários</a></li>
-                        <li><a href="#pricing" class="nav-link hover:text-white transition-colors">Preços</a></li>
-                    </ul>
+                    <h3 class="text-xl font-serif mb-3">Yin & Restaurativo</h3>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">Posturas profundas e passivas que atuam nos tecidos conjuntivos, convidando a um descanso profundo e libertação emocional.</p>
                 </div>
 
-                <div>
-                    <h4 class="uppercase tracking-widest mb-4 text-xs font-bold text-gray-300">Legal</h4>
-                    <ul class="space-y-3 font-light text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Termos & Condições</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Política de Cancelamento</a></li>
-                    </ul>
+                <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
+                        <i data-lucide="sun" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Hatha Foundation</h3>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">Aulas focadas no alinhamento, sustentando as posturas por mais tempo. Perfeito para construir força e estabilidade.</p>
+                </div>
+
+                <div class="practice-card bg-[#FDFBF7] p-8 rounded-2xl group transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-sage/20 flex items-center justify-center text-sage mb-6 transition-colors duration-300">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Meditação Consciente</h3>
+                    <p class="text-gray-600 font-light text-sm leading-relaxed">Sessões guiadas para te ajudar a enraizar no momento presente, cultivando paz interior e clareza.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Tabela de Horários Interativa -->
+    <section id="schedule" class="py-24 md:py-32 px-6 md:px-12 max-w-6xl mx-auto">
+        <div class="text-center mb-12 fade-up">
+            <span class="text-sage uppercase tracking-widest text-sm mb-4 block">Esta Semana</span>
+            <h2 class="text-3xl md:text-5xl font-serif mb-4">Horário das Aulas</h2>
+            <p class="text-gray-600 font-light max-w-2xl mx-auto mb-2">Encontra a prática que se adapta ao teu dia.</p>
+            <p class="text-[#2D302A] font-semibold">Escolhe a tua aula abaixo e reserva o teu tapete.</p>
+        </div>
+
+        <div class="fade-up delay-100 bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-gray-100">
+            <!-- Tabs dos Dias -->
+            <div class="flex space-x-2 md:space-x-4 overflow-x-auto hide-scrollbar pb-6 border-b border-gray-100 mb-6" id="schedule-tabs">
+                <!-- Gerado por JS -->
+            </div>
+
+            <!-- Cabeçalho da Tabela (Apenas Desktop) -->
+            <div class="hidden md:grid grid-cols-12 gap-4 pb-4 text-xs uppercase tracking-widest text-gray-400 font-bold border-b border-gray-100 mb-2">
+                <div class="col-span-2">Hora</div>
+                <div class="col-span-5">Prática</div>
+                <div class="col-span-3">Professor(a)</div>
+                <div class="col-span-2 text-right">Ação</div>
+            </div>
+
+            <!-- Conteúdo da Tabela -->
+            <div id="schedule-content" class="space-y-2">
+                <!-- Gerado por JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Imagem da Comunidade -->
+    <section class="py-12">
+        <div class="w-full min-h-[60svh] md:min-h-[70svh] img-container fade-up">
+            <img src="https://images.unsplash.com/photo-1552858725-2758b5fb1286?q=80&w=2000&auto=format&fit=crop" alt="" class="parallax-img object-center">
             
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-700 text-xs text-gray-500 font-light">
-                <p>&copy; 2026 Yoga at Home Limassol. Todos os direitos reservados.</p>
-                <p class="mt-2 md:mt-0">Desenhado para o Bem-Estar.</p>
+            <div class="absolute bottom-8 left-6 md:bottom-16 md:left-12 bg-[#FDFBF7]/95 backdrop-blur-sm p-8 max-w-sm rounded-tr-3xl rounded-bl-3xl">
+                <p class="text-xl font-serif italic mb-2 text-[#2D302A]">"O lugar onde finalmente aprendi a respirar."</p>
+                <span class="text-xs uppercase tracking-widest text-sage">— Membro do Estúdio</span>
             </div>
-        </footer>
+        </div>
+    </section>
 
-        <!-- Modal de Reserva de Aula -->
-        <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#2D302A]/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-6">
-            <div class="bg-[#FDFBF7] rounded-3xl p-8 md:p-12 max-w-md w-full relative transform scale-95 transition-transform duration-300" id="modal-content">
-                <button id="close-modal" class="absolute top-6 right-6 text-gray-400 hover:text-[#2D302A] transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-                <div class="w-12 h-12 rounded-full bg-sage/20 text-sage flex items-center justify-center mb-6">
-                    <i data-lucide="calendar-check" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-3xl font-serif text-[#2D302A] mb-2">Reserva o teu Tapete</h3>
-                <p class="text-gray-600 font-light mb-6" id="booking-details">Estás prestes a reservar uma aula.</p>
+    <!-- Preços -->
+    <section id="pricing" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16 fade-up">
+            <span class="text-sage uppercase tracking-widest text-sm mb-4 block">Membros</span>
+            <h2 class="text-3xl md:text-5xl font-serif mb-6">Investe no teu bem-estar.</h2>
+            <p class="text-gray-600 font-light max-w-2xl mx-auto">Preços simples e transparentes para apoiar a tua prática contínua.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="border border-gray-200 rounded-2xl p-8 flex flex-col items-center text-center fade-up hover:border-sage transition-colors bg-white">
+                <h3 class="text-2xl font-serif mb-2">Aula Avulsa</h3>
+                <div class="text-4xl font-light mb-6">€20</div>
+                <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Perfeito para visitantes ou para quem quer experimentar uma única aula.</p>
+                <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Válido por 1 mês</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Tapete incluído</li>
+                </ul>
+                <a href="#contact" class="nav-link w-full py-3 border border-[#2D302A] rounded-full hover:bg-[#2D302A] hover:text-white transition-colors text-sm uppercase tracking-widest">Reservar Agora</a>
+            </div>
+
+            <div class="border-2 border-sage rounded-2xl p-8 flex flex-col items-center text-center fade-up relative bg-[#FDFBF7] shadow-lg transform md:-translate-y-4">
+                <div class="absolute -top-3 bg-sage text-white text-xs uppercase tracking-widest px-4 py-1 rounded-full">Mais Popular</div>
+                <h3 class="text-2xl font-serif mb-2">Passe 5 Aulas</h3>
+                <div class="text-4xl font-light mb-6">€85</div>
+                <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Uma opção flexível para quem pratica uma ou duas vezes por semana.</p>
+                <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Válido por 3 meses</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Acesso a todas as aulas</li>
+                </ul>
+                <a href="#contact" class="nav-link w-full py-3 bg-sage text-white rounded-full hover:bg-[#2D302A] transition-colors text-sm uppercase tracking-widest">Comprar Passe</a>
+            </div>
+
+            <div class="border border-gray-200 rounded-2xl p-8 flex flex-col items-center text-center fade-up hover:border-sage transition-colors bg-white">
+                <h3 class="text-2xl font-serif mb-2">Mensalidade</h3>
+                <div class="text-4xl font-light mb-6">€140</div>
+                <p class="text-gray-500 font-light text-sm mb-8 flex-grow">Acesso ilimitado para o praticante dedicado.</p>
+                <ul class="text-sm font-light text-gray-600 space-y-3 mb-8 w-full text-left">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> Aulas ilimitadas</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-sage mr-2"></i> 10% de desconto em workshops</li>
+                </ul>
+                <a href="#contact" class="nav-link w-full py-3 border border-[#2D302A] rounded-full hover:bg-[#2D302A] hover:text-white transition-colors text-sm uppercase tracking-widest">Subscrever</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto & Reservas -->
+    <section id="contact" class="py-24 bg-sand">
+        <div class="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="fade-up">
+                <span class="text-gray-500 uppercase tracking-widest text-sm mb-4 block">Entra em Contacto</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-8 text-[#2D302A]">Estamos aqui para ti.</h2>
+                <p class="text-gray-600 font-light mb-10">Quer tenhas uma dúvida sobre uma aula, queiras discutir uma lesão, ou simplesmente queiras dizer olá antes da tua primeira visita.</p>
                 
-                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Pedido de reserva enviado com sucesso. Vemo-nos no tapete!'); document.getElementById('close-modal').click();">
-                    <input type="text" placeholder="O teu Nome" class="form-input !py-2" required>
-                    <input type="email" placeholder="O teu Email" class="form-input !py-2" required>
-                    <button type="submit" class="w-full bg-[#2D302A] text-white py-3 rounded-full uppercase tracking-widest text-xs font-semibold hover:bg-sage transition-colors mt-6">
-                        Confirmar Reserva
+                <div class="space-y-6 text-[#2D302A] font-light">
+                    <div class="flex items-start">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-sage mr-4 mt-1"></i>
+                        <div>
+                            <strong class="block font-normal">Localização</strong>
+                            123 Wellness Avenue<br>Limassol, 3010, Chipre
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="mail" class="w-5 h-5 text-sage mr-4 mt-1"></i>
+                        <div>
+                            <strong class="block font-normal">Email</strong>
+                            hello@yogaathome.cy
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="phone" class="w-5 h-5 text-sage mr-4 mt-1"></i>
+                        <div>
+                            <strong class="block font-normal">Telefone</strong>
+                            +357 25 000 000
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#FDFBF7] p-8 md:p-12 rounded-3xl shadow-sm fade-up delay-100">
+                <h3 class="text-2xl font-serif mb-8">Enviar uma Mensagem</h3>
+                <form class="space-y-6">
+                    <div>
+                        <input type="text" placeholder="O teu Nome" class="form-input" required>
+                    </div>
+                    <div>
+                        <input type="email" placeholder="O teu Email" class="form-input" required>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Assunto (ex: Dúvida sobre reserva)" class="form-input">
+                    </div>
+                    <div>
+                        <textarea placeholder="Como podemos ajudar?" rows="3" class="form-input resize-none" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-[#2D302A] text-white py-4 rounded-full uppercase tracking-widest text-sm font-semibold hover:bg-sage transition-colors mt-4">
+                        Enviar Mensagem
                     </button>
                 </form>
             </div>
         </div>
+    </section>
 
-    </div> <!-- FIM DO WRAPPER SEGURO -->
+    <!-- Rodapé -->
+    <footer class="bg-[#2D302A] text-[#FDFBF7] pt-16 pb-8 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-2">
+                <h3 class="text-2xl font-serif mb-4">Yoga at Home</h3>
+                <p class="max-w-sm mb-6 font-light text-gray-400">Um refúgio seguro para o movimento consciente, respiração e conexão comunitária em Limassol.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="uppercase tracking-widest mb-4 text-xs font-bold text-gray-300">Explorar</h4>
+                <ul class="space-y-3 font-light text-gray-400 text-sm">
+                    <li><a href="#story" class="nav-link hover:text-white transition-colors">O Estúdio</a></li>
+                    <li><a href="#classes" class="nav-link hover:text-white transition-colors">Aulas</a></li>
+                    <li><a href="#schedule" class="nav-link hover:text-white transition-colors">Horários</a></li>
+                    <li><a href="#pricing" class="nav-link hover:text-white transition-colors">Preços</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="uppercase tracking-widest mb-4 text-xs font-bold text-gray-300">Legal</h4>
+                <ul class="space-y-3 font-light text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Termos & Condições</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Política de Cancelamento</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-700 text-xs text-gray-500 font-light">
+            <p>&copy; 2026 Yoga at Home Limassol. Todos os direitos reservados.</p>
+            <p class="mt-2 md:mt-0">Desenhado para o Bem-Estar.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Reserva de Aula -->
+    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#2D302A]/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-6">
+        <div class="bg-[#FDFBF7] rounded-3xl p-8 md:p-12 max-w-md w-full relative transform scale-95 transition-transform duration-300" id="modal-content">
+            <button id="close-modal" class="absolute top-6 right-6 text-gray-400 hover:text-[#2D302A] transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="w-12 h-12 rounded-full bg-sage/20 text-sage flex items-center justify-center mb-6">
+                <i data-lucide="calendar-check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-3xl font-serif text-[#2D302A] mb-2">Reserva o teu Tapete</h3>
+            <p class="text-gray-600 font-light mb-6" id="booking-details">Estás prestes a reservar uma aula.</p>
+            
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Pedido de reserva enviado com sucesso. Vemo-nos no tapete!'); document.getElementById('close-modal').click();">
+                <input type="text" placeholder="O teu Nome" class="form-input !py-2" required>
+                <input type="email" placeholder="O teu Email" class="form-input !py-2" required>
+                <button type="submit" class="w-full bg-[#2D302A] text-white py-3 rounded-full uppercase tracking-widest text-xs font-semibold hover:bg-sage transition-colors mt-6">
+                    Confirmar Reserva
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Scripts do GSAP e Lenis -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -459,26 +459,8 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
     <script>
-        // Inicializar Ícones Lucide
+        // Inicializar Ícones Lucide imediatamente para evitar shifts no layout
         lucide.createIcons();
-
-        // 1. Inicializar Lenis Smooth Scrolling com configurações mais seguras
-        const lenis = new Lenis({
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-            infinite: false,
-        });
-
-        // 2. Sincronizar Lenis com GSAP da forma recomendada
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
 
         // Dados do Horário em Português
         const scheduleData = {
@@ -531,6 +513,8 @@
                     activeDay = day;
                     renderScheduleTabs();
                     renderScheduleContent();
+                    // Pequeno refresh no ScrollTrigger após renderizar novo conteúdo
+                    setTimeout(() => ScrollTrigger.refresh(), 100);
                 };
                 
                 tabsContainer.appendChild(btn);
@@ -580,20 +564,21 @@
         const modalContent = document.getElementById('modal-content');
         const closeBtn = document.getElementById('close-modal');
         const detailsText = document.getElementById('booking-details');
+        let lenisInstance;
 
         window.openBookingModal = function(name, time, day, teacher) {
             detailsText.innerHTML = `Vais garantir um tapete para <strong>${name}</strong> à <strong>${day} às ${time}</strong> com ${teacher}.`;
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-95');
             modalContent.classList.add('scale-100');
-            lenis.stop(); // Previne scroll de fundo
+            if(lenisInstance) lenisInstance.stop();
         }
 
         function closeBookingModal() {
             modal.classList.add('opacity-0', 'pointer-events-none');
             modalContent.classList.add('scale-95');
             modalContent.classList.remove('scale-100');
-            lenis.start();
+            if(lenisInstance) lenisInstance.start();
         }
 
         closeBtn.addEventListener('click', closeBookingModal);
@@ -601,9 +586,35 @@
             if(e.target === modal) closeBookingModal();
         });
 
-        // Configurações após o DOM carregar
-        document.addEventListener('DOMContentLoaded', () => {
+
+        // A MAGIA ACONTECE AQUI: Em vez de DOMContentLoaded, esperamos que tudo (incluindo imagens) carregue.
+        window.addEventListener('load', () => {
             
+            // 1. Inicializar Lenis
+            lenisInstance = new Lenis({
+                duration: 1.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false, // Desligar o smoothTouch é importante no mobile para evitar conflitos nativos
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            // 2. Registar o ScrollTrigger de forma segura
+            gsap.registerPlugin(ScrollTrigger);
+
+            // A SOLUÇÃO OFICIAL DO GSAP PARA O BUG DE SCROLL NO MOBILE:
+            // Isto impede que o ScrollTrigger force um "refresh" (recalcular as posições) 
+            // quando a barra de endereço do telemóvel aparece ou desaparece.
+            ScrollTrigger.config({ ignoreMobileResize: true });
+
+            lenisInstance.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenisInstance.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+
             // Inicializar Horário
             renderScheduleTabs();
             renderScheduleContent();
@@ -648,6 +659,9 @@
                     gsap.to(img, { yPercent: 10, ease: "none", scrollTrigger: { trigger: container, start: "top bottom", end: "bottom top", scrub: true }});
                 }
             });
+
+            // Forçar um refresh do GSAP uma última vez agora que tudo está calculado
+            ScrollTrigger.refresh();
 
             // Mudança de Fundo da Navegação no Scroll
             const navbar = document.getElementById('navbar');
@@ -698,7 +712,7 @@
                     if(menuOpen) closeMenu();
                     const targetId = link.getAttribute('href');
                     if (targetId.startsWith('#')) {
-                        lenis.scrollTo(targetId, { offset: -80, duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                        lenisInstance.scrollTo(targetId, { offset: -80, duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
                     }
                 });
             });
